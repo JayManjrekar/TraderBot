@@ -28,18 +28,21 @@ public class Insert {
     }
 
     /**
-     * Insert a new row into the warehouses table
+     * Insert a new row into the stocks table
      *
-     * @param name
-     * @param capacity
      */
-    public void insert(String name, double capacity) {
-        String sql = "INSERT INTO warehouses(name,capacity) VALUES(?,?)";
+    public void insert(float highPrice, float lowPrice,String shortName, float delayedPrice, int requestNumber, String symbol) {
+        String sql = "INSERT INTO stocks(highPrice,lowPrice, shorName, delayedPrice, reqeustNumber, symbol) VALUES(?,?,?,?,?,?)";
 
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, name);
-            pstmt.setDouble(2, capacity);
+            pstmt.setFloat(1, highPrice);
+            pstmt.setFloat(2, lowPrice);
+            pstmt.setString(3, shortName);
+            pstmt.setFloat(4, delayedPrice);
+            pstmt.setInt(5, requestNumber);
+            pstmt.setString(6, symbol);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -53,9 +56,7 @@ public class Insert {
 
         Insert app = new Insert();
         // insert three new rows
-        app.insert("Raw Materials", 3000);
-        app.insert("Semifinished Goods", 4000);
-        app.insert("Finished Goods", 5000);
+        app.insert(3.30f, 2.30f, "apple inc", 3.00f, 5, "aapl");
     }
 
 }
