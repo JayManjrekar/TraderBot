@@ -91,6 +91,82 @@ private void executeSellOrder(String symbol) {
 
 
 
+import java.util.*;
+
+public class StockTradingBot {
+
+    private Map<String, List<Double>> stockData = new HashMap<>();
+    private Map<String, Double> wallet = new HashMap<>();
+
+    public StockTradingBot() {
+        // Initialize the wallet with some money
+        wallet.put("USD", 10000.0);
+    }
+
+    // Placeholder methods for API calls
+    private double getClosingPrice(String symbol, String date) {
+        // Replace with API call
+        return 0.0;
+    }
+
+    private void executeBuyOrder(String symbol, double quantity) {
+        // Replace with API call
+        System.out.println("Buy order executed for " + quantity + " units of " + symbol);
+        // Mock wallet update
+        double cost = stockData.get(symbol).get(stockData.get(symbol).size() - 1) * quantity;
+        wallet.put("USD", wallet.get("USD") - cost);
+        wallet.put(symbol, wallet.getOrDefault(symbol, 0.0) + quantity);
+    }
+
+    private void executeSellOrder(String symbol, double quantity) {
+        // Replace with API call
+        System.out.println("Sell order executed for " + quantity + " units of " + symbol);
+        // Mock wallet update
+        double revenue = stockData.get(symbol).get(stockData.get(symbol).size() - 1) * quantity;
+        wallet.put("USD", wallet.get("USD") + revenue);
+        wallet.put(symbol, wallet.getOrDefault(symbol, 0.0) - quantity);
+    }
+
+    // Fetch the data for a stock for past 'n' days
+    private void fetchStockData(String symbol, int days) {
+        List<Double> closingPrices = new ArrayList<>();
+        for (int i = 1; i <= days; i++) {
+            String date = "2023-05-" + i; // Replace with actual dates
+            double closingPrice = getClosingPrice(symbol, date);
+            closingPrices.add(closingPrice);
+        }
+        stockData.put(symbol, closingPrices);
+    }
+
+    // Step 1: Calculate the Moving Averages
+    private double calculateMovingAverage(String symbol, int start, int end) {
+        double sum = 0.0;
+        for (int i = start; i < end; i++) {
+            sum += stockData.get(symbol).get(i);
+        }
+        return sum / (end - start);
+    }
+
+    // Step 2: Generate a Trading Signal
+    private String generateTradingSignal(String symbol) {
+        double fiftyDayMovingAverage = calculateMovingAverage(symbol, stockData.get(symbol).size() - 50, stockData.get(symbol).size());
+        double twoHundredDayMovingAverage = calculateMovingAverage(symbol, stockData.get(symbol).size() - 200, stockData.get(symbol).size());
+
+        if (fiftyDayMovingAverage > twoHundredDayMovingAverage) {
+            return "buy";
+        } else {
+            return "sell";
+        }
+    }
+
+    // Step 3: Execute Trades Based on the Signal
+    private void executeTrades(String symbol, String signal) {
+        // Determine the quantity to buy/sell based on available balance
+        double currentPrice = stockData.get(symbol).get(stockData.get(symbol).size() - 1);
+        double quantity = wallet.get("USD") / currentPrice;
+        if (signal.equals("buy")) {
+            executeBuyOrder(symbol, quantity);
+        } else if (signal.equals("sell") && wallet.containsKey
 
 
 
