@@ -17,3 +17,11 @@ private void executeSellOrder(String symbol) {
         // Replace with API call to execute a sell order for the given stock symbol
         System.out.println("Sell order executed for " + symbol);
     }
+ // Step 1: Calculate the Moving Averages
+    private double calculateMovingAverage(List<Double> closingPrices) {
+        double sum = 0.0;
+        for (Double price : closingPrices) {
+            sum += price;
+        }
+        return sum / closingPrices.size();
+    }
