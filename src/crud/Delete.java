@@ -7,8 +7,9 @@ import java.sql.SQLException;
 
 /**
  *
+ * @author sqlitetutorial.net
  */
-public class Insert {
+public class Delete {
 
     /**
      * Connect to the test.db database
@@ -28,22 +29,20 @@ public class Insert {
     }
 
     /**
-     * Insert a new row into the stocks table
      *
+
      */
-    public void insert(float highPrice, float lowPrice,String shortName, float delayedPrice, int requestNumber, String symbol) {
-        String sql = "INSERT INTO stocks(highPrice,lowPrice, shortName, delayedPrice, requestNumber, symbol) VALUES(?,?,?,?,?,?)";
+    public void delete(String symbol) {
+        String sql = "DELETE FROM stocks WHERE symbol = ?";
 
         try (Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setFloat(1, highPrice);
-            pstmt.setFloat(2, lowPrice);
-            pstmt.setString(3, shortName);
-            pstmt.setFloat(4, delayedPrice);
-            pstmt.setInt(5, requestNumber);
-            pstmt.setString(6, symbol);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            // set the corresponding param
+            pstmt.setString(1, symbol);
+            // execute the delete statement
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -53,10 +52,10 @@ public class Insert {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        Insert app = new Insert();
-        // insert three new rows
-        app.insert(3.30f, 2.30f, "Google", 3.50f, 5, "googl");
+        Delete app = new Delete();
+        // delete the row with id 3
+        app.delete("googl");
     }
 
 }
+

@@ -7,8 +7,9 @@ import java.sql.SQLException;
 
 /**
  *
+ * @author sqlitetutorial.net
  */
-public class Insert {
+public class Update {
 
     /**
      * Connect to the test.db database
@@ -18,6 +19,7 @@ public class Insert {
     private Connection connect() {
         // SQLite connection string
         String url = "jdbc:sqlite:/Users/hankypanky/vscode/TraderBot/stockdatabase.db";
+
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -28,22 +30,23 @@ public class Insert {
     }
 
     /**
-     * Insert a new row into the stocks table
+     * Update data of a warehouse specified by the id
+     *
      *
      */
-    public void insert(float highPrice, float lowPrice,String shortName, float delayedPrice, int requestNumber, String symbol) {
-        String sql = "INSERT INTO stocks(highPrice,lowPrice, shortName, delayedPrice, requestNumber, symbol) VALUES(?,?,?,?,?,?)";
+    public void update(String symbol, float delayedPrice) {
+        String sql = "UPDATE stocks SET delayedPrice = ? "
+                + "WHERE symbol = ?";
 
         try (Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setFloat(1, highPrice);
-            pstmt.setFloat(2, lowPrice);
-            pstmt.setString(3, shortName);
-            pstmt.setFloat(4, delayedPrice);
-            pstmt.setInt(5, requestNumber);
-            pstmt.setString(6, symbol);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            // set the corresponding param
+            pstmt.setFloat(1, delayedPrice );
+            pstmt.setString(2, symbol);
+            // update
             pstmt.executeUpdate();
+            conn.commit();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -54,9 +57,9 @@ public class Insert {
      */
     public static void main(String[] args) {
 
-        Insert app = new Insert();
-        // insert three new rows
-        app.insert(3.30f, 2.30f, "Google", 3.50f, 5, "googl");
+        Update app = new Update();
+        // update the warehouse with id 3
+        app.update("googl", 5.0f);
     }
 
 }
