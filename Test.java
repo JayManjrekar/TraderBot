@@ -9,14 +9,6 @@ class Stock {
         this.price = price;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-}
 
 class Portfolio {
     private Map<String, Integer> stocks;
