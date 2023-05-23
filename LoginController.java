@@ -16,3 +16,6 @@ public class LoginController {
     }
 private boolean isValidLogin(String userId, String name) {
         
+        return !userId.isEmpty() && !name.isEmpty();
+    }
+}
