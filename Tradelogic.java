@@ -13,3 +13,7 @@ public class StockTradingBot {
         System.out.println("Buy order executed for " + symbol);
     }
   
+private void executeSellOrder(String symbol) {
+        // Replace with API call to execute a sell order for the given stock symbol
+        System.out.println("Sell order executed for " + symbol);
+    }
