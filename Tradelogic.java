@@ -25,3 +25,20 @@ private void executeSellOrder(String symbol) {
         }
         return sum / closingPrices.size();
     }
+ // Step 2: Generate a Trading Signal
+    private String generateTradingSignal(double fiftyDayMovingAverage, double twoHundredDayMovingAverage) {
+        if (fiftyDayMovingAverage > twoHundredDayMovingAverage) {
+            return "buy";
+        } else {
+            return "sell";
+        }
+    }
+
+    // Step 3: Execute Trades Based on the Signal
+    private void executeTrades(String symbol, String signal) {
+        if (signal.equals("buy")) {
+            executeBuyOrder(symbol);
+        } else if (signal.equals("sell")) {
+            executeSellOrder(symbol);
+        }
+    }
