@@ -42,3 +42,56 @@ private void executeSellOrder(String symbol) {
             executeSellOrder(symbol);
         }
     }
+    
+    
+    // Step 4: Risk Management
+    private double calculateStopLossLevel(double entryPrice, double stopLossPercentage) {
+        return entryPrice - (entryPrice * stopLossPercentage);
+    }
+
+    private double calculateTakeProfitLevel(double entryPrice, double takeProfitPercentage) {
+        return entryPrice + (entryPrice * takeProfitPercentage);
+    }
+
+    public void tradeStock(String symbol, double stopLossPercentage, double takeProfitPercentage) {
+        // Get the closing prices for the past 200 days
+        List<Double> closingPrices = new ArrayList<>();
+        for (int i = 1; i <= 200; i++) {
+            String date = "2023-05-" + i; // Replace with the actual dates
+            double closingPrice = getClosingPrice(symbol, date);
+            closingPrices.add(closingPrice);
+        }
+
+        // Calculate the moving averages
+        double fiftyDayMovingAverage = calculateMovingAverage(closingPrices.subList(0, 50));
+        double twoHundredDayMovingAverage = calculateMovingAverage(closingPrices);
+
+        // Generate the trading signal
+        String signal = generateTradingSignal(fiftyDayMovingAverage, twoHundredDayMovingAverage);
+
+        // Execute trades based on the signal
+        executeTrades(symbol, signal);
+
+        // Calculate stop loss and take profit levels
+        double entryPrice = closingPrices.get(closingPrices.size() - 1);
+        double stopLossLevel = calculateStopLossLevel(entryPrice, stopLossPercentage);
+        double takeProfitLevel = calculateTakeProfitLevel(entryPrice, takeProfitPercentage);
+
+        System.out.println("Entry price: " + entryPrice);
+        System.out.println("Stop loss level: " + stopLossLevel);
+        System.out.println("Take profit level: " + takeProfitLevel);
+    }
+
+    public static void main(String[] args) {
+        StockTradingBot tradingBot = new StockTradingBot();
+        tradingBot.tradeStock("AAPL", 0.05, 0.1);
+    }
+}
+//Please insert API in placeholdings using payments
+
+
+
+
+
+
+
