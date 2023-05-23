@@ -8,5 +8,8 @@ public class StockTradingBot {
         return 0.0;
     }
   
-  
+  private void executeBuyOrder(String symbol) {
+        // Replace with API call to execute a buy order for the given stock symbol
+        System.out.println("Buy order executed for " + symbol);
+    }
   
