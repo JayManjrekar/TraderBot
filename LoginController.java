@@ -14,3 +14,5 @@ public class LoginController {
             return "error"; // Redirect to error page
         }
     }
+private boolean isValidLogin(String userId, String name) {
+        
