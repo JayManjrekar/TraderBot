@@ -59,7 +59,7 @@ public class Update {
 
         Update app = new Update();
         // update the warehouse with id 3
-        app.update("googl", 5.0f);
+        app.update("msft", 4.0f);
     }
 
 }
