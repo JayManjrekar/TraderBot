@@ -1,19 +1,12 @@
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
 
-@Controller
-public class LoginController {
+public class LoginServlet extends HttpServlet {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userid = request.getParameter("userid");
+        String name = request.getParameter("name");
 
-    @PostMapping("/login")
-    public String login(@RequestParam String userid, @RequestParam String name) {
-        // Place your authentication logic here.
-        System.out.println("User ID: " + userid);
-        System.out.println("Name: " + name);
-
-        // If user authenticated successfully
-        return "redirect:/welcome"; // This should be the URL of your welcome page
-
-        // If authentication failed
-        // return "redirect:/login?error"; // Use this if you want to redirect back to the login page
+        // Do something with the userid and name
     }
 }
