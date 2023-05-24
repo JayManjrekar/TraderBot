@@ -1,3 +1,4 @@
+
 import net.jacobpeterson.alpaca.AlpacaAPI;
 import net.jacobpeterson.domain.alpaca.account.Account;
 import net.jacobpeterson.domain.alpaca.asset.Asset;
@@ -8,8 +9,8 @@ import net.jacobpeterson.domain.alpaca.order.TimeInForce;
 
 public class TradingBot {
 
-    private static final String API_KEY_ID = "<Your-Paper-Trading-API-Key-Id>";
-    private static final String API_SECRET = "<Your-Paper-Trading-API-Secret>";
+    private static final String API_KEY_ID = "<PKC1V2UHIJCY44F40LT7>";
+    private static final String API_SECRET = "<95wbv28Nx5hmY9WdAX6d2nfqBvfqrC3MJTi7m3PI>";
     private static final String BASE_API_URL = "https://paper-api.alpaca.markets";
     private static final String SYMBOL = "AAPL";
     private static final double BUY_THRESHOLD = 120.0;
